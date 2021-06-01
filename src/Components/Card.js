@@ -48,7 +48,7 @@ const Card = ({ pokemon }) => {
                 <WeaknessResistanceRetreat
                     weaknessData={pokemon.weaknessData}
                     resistanceData={pokemon.resistanceData}
-                    retreatCostData={pokemon.retreatCostData}
+                    retreatData={pokemon.retreatData}
                 />
                 <div className="pokemon-random-fact-box" >
                     <p>

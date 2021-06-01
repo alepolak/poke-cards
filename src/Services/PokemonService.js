@@ -13,13 +13,8 @@ const pikachu = {
         amount: 1,
         type: 'fighting',
     },
-    resistanceData: {
-        amount: 1,
-        type: 'grass',
-        modifier: -30,
-    },
     retreatData: {
-        amount: 3,
+        amount: 1,
     },
     actions: [
         {
@@ -39,16 +34,48 @@ const pikachu = {
     ]
 }
 
+const charizard = {
+    number: 6,
+    name: "Charizard",
+    image: 'https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2021/03/Pokemon-Holograma-de-Charizard-se-vendio-en-subasta-en-mas-de-300-mil-dolares.jpg?fit=1280%2C720&quality=80&ssl=1',
+    imageAtl: 'Charizard flying',
+    health: 120,
+    type: 'fire',
+    evolutionNumber: '3',
+    evolutionFrom: 'Charmeleon',
+    description: "Flame Pokemon. Length: 5'7'', Weight: 200 lbs.",
+    randomFact: "Spits fire that is hot enough to melt boulders. Known to unintentionally cause forest fires. LV. 76 #6",
+    weaknessData: {
+        amount: 1,
+        type: 'water',
+    },
+    resistanceData: {
+        amount: 1,
+        type: 'fighting',
+        modifier: -30,
+    },
+    retreatData: {
+        amount: 3,
+    },
+    actions: [
+        {
+            name: "Energy Burn",
+            type: "power",
+            description: "As often as you like during your turn (before your attack), you may turn all Energy attached to Charizard into Fire Energy for the rest of the turn. This power can't be used if Charizard is Asleep, Confused, or Paralyzed."
+        },
+        {
+            name: "Fire Spin",
+            type: "attack",
+            description: "Discard 2 Energy cards attached to Charizard in order to use this attack..",
+            energyType: 'fire',
+            energyAmount: 4,
+            damage: 100,
+        }
+    ]
+}
 
-const pokemons = [pikachu];
+const pokemons = [pikachu, charizard];
 
 export const getPokemonDataByNumber = (number) => {
     return pokemons.find(p => p.number === number);
 }
-
-
-const action3 = {
-    name: "Energy Burn",
-    type: "power",
-    description: "As often as you like during your turn (before your attack), you may turn all Energy attached to Charizard into Fire Energy for the rest of the turn. This power can't be used if Charizard is Asleep, Confused, or Paralyzed."
-};

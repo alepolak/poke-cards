@@ -2,7 +2,7 @@ import react from 'react';
 import './WeaknessResistanceRetreat.css';
 import TypeIcon from './TypeIcon';
 
-const WeaknessResistanceRetreat = ({weaknessData, resistanceData, retreatCostData}) => {
+const WeaknessResistanceRetreat = ({weaknessData, resistanceData, retreatData}) => {
 
     const getAmountOfType = (amount, type) => {
         let types = [];
@@ -11,7 +11,7 @@ const WeaknessResistanceRetreat = ({weaknessData, resistanceData, retreatCostDat
         }
         return types;
     } 
-
+    
     const getEnergyIconsFromData = (data) => {
         if(data) {
             if(data.modifier) {
@@ -41,7 +41,7 @@ const WeaknessResistanceRetreat = ({weaknessData, resistanceData, retreatCostDat
             </div>
             <div className="element">               
                 <p className="title">retreat</p>
-                {getEnergyIconsFromData(retreatCostData)}
+                {getEnergyIconsFromData(retreatData)}
             </div>
         </div>
     );

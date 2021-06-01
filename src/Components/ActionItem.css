@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: 2px solid black;
     padding-bottom: 0.5em;
     margin-top: 0.5em;
+    max-height: 10em;
 }
 
 .energy-slot {
@@ -14,7 +14,7 @@
 }
 
 p {
-    font-size: 1.5em;
+    font-size: 1.4em;
 }
 
 .description-slot {
@@ -34,6 +34,7 @@ p {
 .item .power-description-slot {
     width: 82%;
     margin-left: 2.5em;
+    font-size: 1.2em;
 }
 
 .damage-slot {   

@@ -6,6 +6,7 @@ const App = () => {
   return (
     <div>
       <Card pokemon={getPokemonDataByNumber(25)}/>
+      <Card pokemon={getPokemonDataByNumber(6)}/>
     </div>
   );
 }

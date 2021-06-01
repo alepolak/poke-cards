@@ -3,3 +3,11 @@
     display: flex;
     flex-direction: column;
 }
+
+.separator {
+    color: black;
+    background-color: black;
+    height: 2px;
+    border: black;
+    width: 100%;
+}
