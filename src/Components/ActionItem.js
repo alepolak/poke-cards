@@ -5,57 +5,22 @@ import TypeIcon from './TypeIcon';
 const AttackItem = ({name, description, energyAmount, energyType, damage, actionType}) => {
 
     const getEnergyIcons = () => {
-
-        switch (energyAmount) {
-            case 1:
-                return (
-                    <div className="even-energy-types">
-                        <TypeIcon type={energyType}/>
-                    </div>
-                );
-            case 2:
-                return (
-                    <div className="even-energy-types">
-                        <TypeIcon type={energyType}/>
-                        <TypeIcon type={energyType}/>
-                    </div>
-                ); 
-            case 3:
-                return (
-                    <div className="three-energy-types">
-                        <div className="even-energy-types">
-                            <TypeIcon type={energyType}/>
-                            <TypeIcon type={energyType}/>
-                        </div>
-                        <div className="even-energy-types">
-                            <TypeIcon type={energyType}/>
-                        </div>
-                    </div>
-                ); 
-            case 4:
-                return (
-                    <div className="even-energy-types ">
-                        <div>
-                            <TypeIcon type={energyType}/>
-                            <TypeIcon type={energyType}/>
-                        </div>
-                        <div>
-                            <TypeIcon type={energyType}/>
-                            <TypeIcon type={energyType}/>
-                        </div>
-                    </div>
-                );       
-            default:
-                return null;
+        let energy = [];
+        for (let i = 0; i < energyAmount; i++) {
+            energy.push(<TypeIcon type={energyType}/>);
         }
-    }
+
+        return (
+            <div className="energy-slot">
+                {energy}
+            </div>
+        );
+    } 
 
     const getAttackElement = () => {
         return (
             <div className="item">
-                <div className="energy-slot">
-                    {getEnergyIcons()}       
-                </div>
+                {getEnergyIcons()}       
                 <p className="attack-description-slot">
                     <span className="name">{name} </span>
                     {description}

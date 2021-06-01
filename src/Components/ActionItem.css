@@ -7,34 +7,18 @@
     max-height: 10em;
 }
 
-.energy-slot {
-    margin-left: 1%;
-    margin-right: 3%;
-    width: 10%;
-}
-
 p {
     font-size: 1.4em;
 }
 
-.description-slot {
-    margin-right: 1%;
-}
-
-.item .attack-description-slot {
-    width: 74%;
-    margin-right: 1%;
-}
-
-.item .effect-description-slot {
-    width: 83%;
-    margin-right: 1%;
-}
-
-.item .power-description-slot {
-    width: 82%;
-    margin-left: 2.5em;
-    font-size: 1.2em;
+.energy-slot {
+    margin-left: 1%;
+    margin-right: 3%;
+    width: 14%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .damage-slot {   
@@ -44,19 +28,24 @@ p {
     font-weight: bolder;
 }
 
-.even-energy-types {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+
+.attack-description-slot {
+    width: 74%;
+    margin-right: 1%;
 }
 
-.three-energy-types {
-    display: flex;
-    flex-direction: column; 
+.effect-description-slot {
+    width: 83%;
+    margin-right: 1%;
+}
+
+.power-description-slot {
+    width: 82%;
+    margin-left: 3.5em;
+    font-size: 1.2em;
 }
 
 .name {
     font-size: 1.2em;
     font-weight: bold;
 }
-

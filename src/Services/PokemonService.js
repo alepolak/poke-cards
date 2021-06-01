@@ -68,7 +68,7 @@ const charizard = {
             type: "attack",
             description: "Discard 2 Energy cards attached to Charizard in order to use this attack..",
             energyType: 'fire',
-            energyAmount: 4,
+            energyAmount: 3,
             damage: 100,
         }
     ]

@@ -9,9 +9,13 @@ import './Card.css';
 import { getBackgroundImage } from '../Services/BackgroundService';
 
 const Card = ({ pokemon }) => {
+
+    //reference https://www.misatocomics.com.ar/liga-misato-pokemon-tcg/guia-de-expansiones-pokemon-tcg/
     const firstEditionUrl = 'https://cdn2.bulbagarden.net/upload/0/0b/1st_edition_English.png';
-    const promoUrl = 'https://help.tcgplayer.com/hc/article_attachments/360039866994/unnamed-2.jpg';
-    
+    const promoUrl = 'https://www.misatocomics.com.ar/wp-content/uploads/2020/05/xy-promos-pokemon-set-symbol.png';
+    const baseSet2Url = 'https://www.misatocomics.com.ar/wp-content/uploads/2020/05/base-set-2-pokemon-set-symbol.png';
+    const legendaryCollectionUrl = 'https://www.misatocomics.com.ar/wp-content/uploads/2020/05/legendary-collection-pokemon-set-symbol.png';
+
     const [backgroundStyle, setBackgroundStyle] = useState();
 
     useEffect(() => {
