@@ -1,0 +1,61 @@
+.item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 2px solid black;
+    padding-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+.energy-slot {
+    margin-left: 1%;
+    margin-right: 3%;
+    width: 10%;
+}
+
+p {
+    font-size: 1.5em;
+}
+
+.description-slot {
+    margin-right: 1%;
+}
+
+.item .attack-description-slot {
+    width: 74%;
+    margin-right: 1%;
+}
+
+.item .effect-description-slot {
+    width: 83%;
+    margin-right: 1%;
+}
+
+.item .power-description-slot {
+    width: 82%;
+    margin-left: 2.5em;
+}
+
+.damage-slot {   
+    width: 10%;
+    margin-right: 1%;
+    font-size: 2.5em;
+    font-weight: bolder;
+}
+
+.even-energy-types {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.three-energy-types {
+    display: flex;
+    flex-direction: column; 
+}
+
+.name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+

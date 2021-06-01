@@ -1,0 +1,5 @@
+.action-container {
+    height: 15em;
+    display: flex;
+    flex-direction: column;
+}
