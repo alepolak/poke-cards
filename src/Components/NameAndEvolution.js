@@ -5,7 +5,7 @@ import './Card.css';
 const NameAndEvolution = ({pokemonName, evolutionNumber, evolutionFrom}) => {
     
     const getEvolutionDescription = () => {
-        return evolutionNumber == 0 ? 'Basic Pokemon' : `Evolves from ${evolutionFrom}`;
+        return evolutionNumber === 0 ? 'Basic Pokemon' : `Evolves from ${evolutionFrom}`;
     }
 
     const getPokemonMiniImageUrl = () => {
@@ -14,12 +14,12 @@ const NameAndEvolution = ({pokemonName, evolutionNumber, evolutionFrom}) => {
 
     const getPokemonDevolutionMiniature = (stage) => {
         return (
-            stage == 0 ? 
+            stage === 0 ? 
             null 
             :
             <div className="pokemon-devolution">
                 <p className="pokemon-stage"> Stage {stage}</p>
-                <img className="pokemon-devolution-miniature" src={getPokemonMiniImageUrl()}/>
+                <img className="pokemon-devolution-miniature" src={getPokemonMiniImageUrl()} alt={evolutionFrom}/>
             </div>
         );
     }

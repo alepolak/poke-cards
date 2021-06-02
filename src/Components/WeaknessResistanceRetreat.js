@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import './WeaknessResistanceRetreat.css';
 import TypeIcon from './TypeIcon';
 
@@ -11,7 +11,7 @@ const WeaknessResistanceRetreat = ({weaknessData, resistanceData, retreatData}) 
         }
         return types;
     } 
-    
+
     const getEnergyIconsFromData = (data) => {
         if(data) {
             if(data.modifier) {

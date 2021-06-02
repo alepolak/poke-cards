@@ -7,9 +7,9 @@ const ActionList = ({ pokemonActions }) => {
         return pokemonActions.map((action, i) => {
             if(i < pokemonActions.length-1) {
                 return (
-                    <React.Fragment>
-                        <ActionItem key={action.name} actionType={action.type} name={action.name} description={action.description} energyAmount={action.energyAmount} energyType={action.energyType} damage={action.damage}/>
-                        <hr key={pokemonActions.length+1} className="separator" />
+                    <React.Fragment key={pokemonActions.length+1}>
+                        <ActionItem actionType={action.type} name={action.name} description={action.description} energyAmount={action.energyAmount} energyType={action.energyType} damage={action.damage}/>
+                        <hr className="separator" />
                     </React.Fragment>
                 );
             } else

@@ -16,7 +16,7 @@ const ImageIcon = ({className, url, size}) => {
     }
 
     return (
-        url ? <img src={url} className={`${className} ${getSize(size)} imageIcon`}/> : null
+        url ? <img src={url} alt={size} className={`${className} ${getSize(size)} imageIcon`}/> : null
     );
 }
 

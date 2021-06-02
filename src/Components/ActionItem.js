@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import './ActionItem.css';
 import TypeIcon from './TypeIcon';
 
@@ -7,7 +7,7 @@ const AttackItem = ({name, description, energyAmount, energyType, damage, action
     const getEnergyIcons = () => {
         let energy = [];
         for (let i = 0; i < energyAmount; i++) {
-            energy.push(<TypeIcon type={energyType}/>);
+            energy.push(<TypeIcon key={i} type={energyType}/>);
         }
 
         return (
