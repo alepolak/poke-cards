@@ -1,0 +1,23 @@
+.cardImage-img {
+    width: 37.5em;
+    height: 29em;
+    padding: 0.5em;
+    box-shadow: 0.2em 0.2em 1em 0.1em black;
+    background: radial-gradient(circle, rgba(153,132,24,1) 0%, rgba(218,189,30,1) 41%, rgba(153,132,24,1) 65%, rgba(215,189,40,1) 73%, rgba(227,209,105,1) 100%);
+}
+
+.cardImage {
+    width: 38em;
+}
+
+.parallax {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png), url(http://codemag.mx/wp-content/uploads/2020/12/portada-2.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position: 50% 50%;
+    background-size: 25em 25em, cover;
+    outline: 1px solid;
+  }
