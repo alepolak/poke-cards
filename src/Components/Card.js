@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from './Image';
 import NameAndEvolution from './NameAndEvolution';
 import ImageIcon from './ImageIcon';
@@ -6,26 +6,31 @@ import TypeIcon from './TypeIcon';
 import ActionList from './ActionList';
 import WeaknessResistanceRetreat from './WeaknessResistanceRetreat';
 import './Card.css';
-import { getBackgroundImage } from '../Services/BackgroundService';
+import { getCardBackgroundImage } from '../Services/BackgroundService';
 
 const Card = ({ pokemon }) => {
+
+    const cardRef = useRef();
 
     //reference https://www.misatocomics.com.ar/liga-misato-pokemon-tcg/guia-de-expansiones-pokemon-tcg/
     const firstEditionUrl = 'https://cdn2.bulbagarden.net/upload/0/0b/1st_edition_English.png';
     const promoUrl = 'https://www.misatocomics.com.ar/wp-content/uploads/2020/05/xy-promos-pokemon-set-symbol.png';
-    const baseSet2Url = 'https://www.misatocomics.com.ar/wp-content/uploads/2020/05/base-set-2-pokemon-set-symbol.png';
-    const legendaryCollectionUrl = 'https://www.misatocomics.com.ar/wp-content/uploads/2020/05/legendary-collection-pokemon-set-symbol.png';
 
     const [backgroundStyle, setBackgroundStyle] = useState();
 
     useEffect(() => {
         setBackgroundStyle({
-            backgroundImage: `url(${getBackgroundImage(pokemon.type)})`
+            backgroundImage: `url(${getCardBackgroundImage(pokemon.type)})`
         });
+
+        if(pokemon.type === 'darkness') {
+            cardRef.current.querySelectorAll('p').forEach(e => e.className += ' white');
+        }
+
     }, []);
 
     return(
-        <div style={backgroundStyle} className="card">
+        <div ref={cardRef} style={backgroundStyle} className="card">
             <div>
                 <div className="center">        
                     <div className="topBar">
@@ -35,15 +40,17 @@ const Card = ({ pokemon }) => {
                             <TypeIcon type={pokemon.type}/>
                         </div>
                     </div>
-                    <Image url={pokemon.image} alt={pokemon.imageAlt}/>
+                    <Image url={pokemon.image} alt={pokemon.imageAlt} type={pokemon.type}/>
                 </div>
                 <div className="pokemon-and-card-description">
                     <div>
                         <ImageIcon url={firstEditionUrl} size={4}/>
                     </div>
-                    <p className="pokemon-description">
-                        {pokemon.description}
-                    </p> 
+                    <div className="pokemon-description">
+                        <p>
+                            {pokemon.description}
+                        </p>
+                    </div> 
                     <div>
                         <ImageIcon url={promoUrl} size={4}/>
                     </div>

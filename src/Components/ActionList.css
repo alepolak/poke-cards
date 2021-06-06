@@ -2,6 +2,7 @@
     height: 15em;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .separator {

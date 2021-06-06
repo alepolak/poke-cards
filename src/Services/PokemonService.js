@@ -1,81 +1,160 @@
-const pikachu = {
-    number: 25,
-    name: "Pikachu",
-    image: 'https://amp.24horas.cl/mrf4u/statics/i/ps/www.24horas.cl/incoming/pikachujpg-2525083/ALTERNATES/w700/Pikachu.jpg?width=1200&enable=upscale',
-    imageAtl: 'Pikachu attacking',
-    health: 50,
-    type: 'lightning',
-    evolutionNumber: '0',
-    evolutionFrom: '',
-    description: 'Mouse Pokemon. Length: 1.4, Weigth: 13lbs',
-    randomFact: "As Pikachu builds up energy in its electricity glands, it often needs to discharge, as to not result in a short. LV. 21 #25",
-    weaknessData: {
-        amount: 1,
-        type: 'fighting',
-    },
-    retreatData: {
-        amount: 1,
-    },
-    actions: [
-        {
-            name: "Growl",
-            type: "effect",
-            description: "If the Defending Pokemon attacks Pikachu during your opponent's next turn, any damage done by the attack is reduced by 10 (after applying Weakness and Resistance). (Benching either Pokemon ends this effect.)",
-            energyAmount: 1
-        },
-        {
-            name: "Thundershock",
-            type: "attack",
-            description: "Flip a coin. If heads, the Defending Pokemon is now Paralyzed.",
-            energyType: 'lightning',
-            energyAmount: 2,
-            damage: 20,
-        }
-    ]
+import axios from "axios";
+import pokemonCardsApi from 'pokemontcgsdk';
+
+const pokemonTCGApiKey = '88a8b75a-1060-4007-8beb-7696d8e9f0e1';
+const pokemonApiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+
+
+const getPokemonCards = async (pokemonData) => {
+    const promises = pokemonData.map(async pokemon => {
+
+        const pokemonCard = await getPokemonCard(pokemon.name);
+        return pokemonCard.data[0];
+    });
+
+    return await Promise.all(promises)
 }
 
-const charizard = {
-    number: 6,
-    name: "Charizard",
-    image: 'https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2021/03/Pokemon-Holograma-de-Charizard-se-vendio-en-subasta-en-mas-de-300-mil-dolares.jpg?fit=1280%2C720&quality=80&ssl=1',
-    imageAtl: 'Charizard flying',
-    health: 120,
-    type: 'fire',
-    evolutionNumber: '3',
-    evolutionFrom: 'Charmeleon',
-    description: "Flame Pokemon. Length: 5'7'', Weight: 200 lbs.",
-    randomFact: "Spits fire that is hot enough to melt boulders. Known to unintentionally cause forest fires. LV. 76 #6",
-    weaknessData: {
-        amount: 1,
-        type: 'water',
-    },
-    resistanceData: {
-        amount: 1,
-        type: 'fighting',
-        modifier: -30,
-    },
-    retreatData: {
-        amount: 3,
-    },
-    actions: [
-        {
-            name: "Energy Burn",
-            type: "power",
-            description: "As often as you like during your turn (before your attack), you may turn all Energy attached to Charizard into Fire Energy for the rest of the turn. This power can't be used if Charizard is Asleep, Confused, or Paralyzed."
-        },
-        {
-            name: "Fire Spin",
-            type: "attack",
-            description: "Discard 2 Energy cards attached to Charizard in order to use this attack..",
-            energyType: 'fire',
-            energyAmount: 3,
-            damage: 100,
-        }
-    ]
+const getPokemonCard = async (name) => {
+    pokemonCardsApi.configure({apiKey: pokemonTCGApiKey});
+    return await pokemonCardsApi.card.where({ q: `name:${name}`, pageSize: 1});
 }
 
-const pokemons = [pikachu, charizard];
+const getPokemonsData = async (amount) => {
 
-export const getPokemonDataByNumber = (number) => {
-    return pokemons.find(p => p.number === number);
+    let pokemonsData = [];
+    for (let i = 1; i < amount; i++) {
+        const pokemon = await axios.get(pokemonApiUrl+i);
+        pokemonsData.push(pokemon.data);
+    }
+    return pokemonsData;
+}
+
+export const getOriginalPokemons = async (amount) => {
+
+    let pokemons = [];
+    const pokemonData = await getPokemonsData(amount);
+    const cards = await getPokemonCards(pokemonData);
+
+    pokemonData.map(pokemon => {
+        const card = cards.find(c => c && c.name.toLowerCase().includes(pokemon.name));
+        pokemons.push(getPokemonDataFrom(pokemon,card));
+    });
+
+    return pokemons;
+}
+
+const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+const getPokemonDataFrom = (pokemon, card) => {
+    if(pokemon && card) {    
+        return {
+            number: pokemon.id,
+            name: pokemon.name,
+            image: pokemon.sprites.other.dream_world.front_default,
+            imageAtl: `This is an image of ${pokemon.name}`,
+            health: card.hp,
+            type: card.types[0].toLowerCase(),
+            evolutionNumber: card.number,
+            evolutionFrom: card.evolvesFrom,
+            description: `${card.types[0]} Pokemon. Length: ${pokemon.height}, Weight: ${pokemon.weight} lbs.`,
+            randomFact: `${card.flavorText ? card.flavorText : 'This pokemon has not random fact.'} LV. ${getRandomInt(1,101)} #${pokemon.id}`,
+            weaknessData: getWeaknessData(card.weaknesses),
+            resistanceData: getResistanceData(card.resistances),
+            retreatData: getRetreatData(card.retreatCost),
+            actions: getActions(card.attacks, card.abilities)
+        }
+    }
+    return null;
+}
+
+const getWeaknessData = (weaknesses) => {
+
+    if(weaknesses) {
+        const type = weaknesses[0].type.toLowerCase();
+        let amount = 0;
+        amount = () => {
+            if(weaknesses.value.includes(1))
+                return 1;
+            else if (weaknesses[0].value.includes(2))
+                return 2;
+            else if (weaknesses[0].value.includes(3))
+                return 3;
+            else if (weaknesses[0].value.includes(2))
+                return 4;
+        }
+
+        return {
+            amount: amount,
+            type: type
+        };
+    }
+
+    return null;
+}
+
+const getResistanceData = (resistanceData) => {
+
+    if(resistanceData) {
+        return {
+            amount: 1,
+            type: resistanceData[0].type.toLowerCase(),
+            modifier: resistanceData[0].value,
+        };
+    }
+
+    return null;
+}
+
+const getRetreatData = (retreatCost) => {
+
+    if(retreatCost) {
+        const amount = retreatCost.length;
+        const type = retreatCost[0].toLowerCase() === "Colorless" ? null : retreatCost[0].toLowerCase();
+    
+        return {
+            amount: amount,
+            type: type
+        };
+    }
+    return null;
+}
+
+const getActions = (attacks, abilities) => {
+    let actions = [];
+    const maxAmount = 2;
+
+    if(abilities) {
+        for (let i = 0; i < abilities.length; i++) {
+            const ability = abilities[i];
+            
+            if(actions.length < maxAmount) {
+                actions.push({
+                    name: ability.name,
+                    type: "power",
+                    description: ability.text
+                });
+            }    
+        }
+    }
+    
+    if(attacks) {
+        for (let i = 0; i < attacks.length; i++) {
+            const attack = attacks[i];
+            if(actions.length < maxAmount) {
+                actions.push({
+                    name: attack.name,
+                    type: (attack.damage) ? "attack" : "effect",
+                    description: attack.text,
+                    energyType: attack.cost.length > 0 ? attack.cost[0].toLowerCase() : null,
+                    energyAmount: attack.cost.length,
+                    damage: attack.damage,
+                })
+            }
+        }
+    }
+
+    return actions;
 }

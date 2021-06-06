@@ -1,6 +1,7 @@
 .weakness-resistance-retreat-element {
     display: flex;
     flex-direction: row;
+    height: 3.2em;
     border-top: 2px solid black;
 }
 
