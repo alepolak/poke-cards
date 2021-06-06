@@ -14,8 +14,14 @@ p {
     border: 1.5em solid #ffea00;
     border-radius: 1.5em;
     background-size: cover;
-    margin-right: 1em;
-    margin-bottom: 1em;
+    margin: 3em;
+    transition: all .3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: translate(0,-2em);
+    box-shadow: 0.6em 0.6em 3em 0.3em #777777;
 }
 
 .center {
